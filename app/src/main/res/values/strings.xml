@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Machine Test</string>
+    <string name="guess_the_country_by_the_flag">Guess the Country by the Flag ?</string>
+    <string name="flags_challenge">FLAGS CHALLENGE</string>
+    <string name="schedule">Schedule</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
+    <string name="second">Second</string>
+    <string name="save">Save</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="score">Score :</string>
+    <string name="correct">CORRECT</string>
+    <string name="wrong">WRONG</string>
+    <string name="question_count">%1$d</string>
+    <string name="total_score">%1$d/15</string>
+</resources>

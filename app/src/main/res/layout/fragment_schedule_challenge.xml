@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.FlagChallengeActivity">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbar_height"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/headerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flags_challenge"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutTimeSetter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/schedule"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <LinearLayout
+                        android:id="@+id/timerLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title">
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/title">
+
+                            <TextView
+                                android:id="@+id/hourLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/hour"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/hourBox1"
+                                android:layout_width="@dimen/scheduler_timer_box_hw"
+                                android:layout_height="@dimen/scheduler_timer_box_hw"
+                                android:background="@drawable/bg_scheduler"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:textColor="@color/timerTextColor"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/hourLabel" />
+
+                            <EditText
+                                android:id="@+id/hourBox2"
+                                android:layout_width="@dimen/scheduler_timer_box_hw"
+                                android:layout_height="@dimen/scheduler_timer_box_hw"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/bg_scheduler"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:textColor="@color/timerTextColor"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toEndOf="@id/hourBox1"
+                                app:layout_constraintTop_toTopOf="@id/hourBox1" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/title">
+
+                            <TextView
+                                android:id="@+id/minuteLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/minute"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/minuteBox1"
+                                android:layout_width="@dimen/scheduler_timer_box_hw"
+                                android:layout_height="@dimen/scheduler_timer_box_hw"
+                                android:background="@drawable/bg_scheduler"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:textColor="@color/timerTextColor"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/minuteLabel" />
+
+                            <EditText
+                                android:id="@+id/minuteBox2"
+                                android:layout_width="@dimen/scheduler_timer_box_hw"
+                                android:layout_height="@dimen/scheduler_timer_box_hw"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/bg_scheduler"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:textColor="@color/timerTextColor"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toEndOf="@id/minuteBox1"
+                                app:layout_constraintTop_toTopOf="@id/minuteBox1" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutSecond"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/title">
+
+                            <TextView
+                                android:id="@+id/secondLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/second"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/secondBox1"
+                                android:layout_width="@dimen/scheduler_timer_box_hw"
+                                android:layout_height="@dimen/scheduler_timer_box_hw"
+                                android:background="@drawable/bg_scheduler"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:textColor="@color/timerTextColor"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/secondLabel" />
+
+                            <EditText
+                                android:id="@+id/secondBox2"
+                                android:layout_width="@dimen/scheduler_timer_box_hw"
+                                android:layout_height="@dimen/scheduler_timer_box_hw"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/bg_scheduler"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:textColor="@color/timerTextColor"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toEndOf="@id/secondBox1"
+                                app:layout_constraintTop_toTopOf="@id/secondBox1" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/saveButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/primaryColor"
+                        android:text="@string/save"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/timerLayout" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTimerCount"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutTimeSetter"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+
+                    <TextView
+                        android:id="@+id/timerTitle"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CHALLENGE\nWILL START IN"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/timerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:00"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+
+        <variable
+            name="item"
+            type="com.appadore.machinetest.data.model.Country" />
+
+        <variable
+            name="listener"
+            type="com.appadore.machinetest.ui.base.AdapterClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:optionUI="@{item}"
+        android:paddingHorizontal="6dp"
+        android:paddingBottom="4dp">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_option_button"
+            android:text="@{item.countryName}"
+            android:textAllCaps="false"
+            android:padding="2dp"
+            android:textSize="13sp"
+            android:onClick="@{()->listener.onAdapterItemClicked(item)}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:text="@string/wrong"
+            android:textColor="@color/optionAnsWrongColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnOption" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
