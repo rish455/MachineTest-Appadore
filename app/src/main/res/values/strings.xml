@@ -12,5 +12,5 @@
     <string name="correct">CORRECT</string>
     <string name="wrong">WRONG</string>
     <string name="question_count">%1$d</string>
-    <string name="total_score">%1$d/15</string>
+    <string name="total_score">%1$d/%2$d</string>
 </resources>

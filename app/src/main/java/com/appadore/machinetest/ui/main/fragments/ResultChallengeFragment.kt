@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import com.appadore.machinetest.R
-import com.appadore.machinetest.data.model.Question
 import com.appadore.machinetest.databinding.FragmentResultChallengeBinding
-import com.appadore.machinetest.databinding.FragmentScheduleChallengeBinding
 import com.appadore.machinetest.ui.base.BaseFragment
 import com.appadore.machinetest.ui.main.FlagChallengeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,10 +52,14 @@ class ResultChallengeFragment :
         }
     }
 
-    private fun initUI(){
-        binding?.score?.text = getString(R.string.total_score, viewModel.getTotalScore())
+    private fun initUI() {
+        binding?.score?.text = getString(
+            R.string.total_score,
+            viewModel.getTotalScore(),
+            viewModel.getTotalQuestions()
+        )
         CoroutineScope(Dispatchers.Main).launch {
-            delay(3000)
+            delay(2000)
             binding?.layoutScore?.visibility = View.VISIBLE
         }
     }

@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<VM : ViewModel, B : ViewBinding> : Fragment() {
@@ -93,7 +96,7 @@ abstract class BaseFragment<VM : ViewModel, B : ViewBinding> : Fragment() {
         baseActivity?.hideBlockingProgress()
     }
 
-    fun showSnackBar(value: String?){
+    fun showSnackBar(value: String?) {
         baseActivity?.showSnackBar(value)
     }
 

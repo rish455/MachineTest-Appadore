@@ -20,7 +20,7 @@ class ChallengeOptionListAdapter(
 
 
     fun updateSelection(item: Country) {
-        if (item.ansStatus == AppConstants.AnswerStatus.NOT_ANSWERED){
+        if (item.ansStatus == AppConstants.AnswerStatus.NOT_ANSWERED) {
             data.forEach {
                 it.isSelected = it.id == item.id
             }

@@ -115,6 +115,7 @@
                                 android:background="@drawable/bg_scheduler"
                                 android:gravity="center"
                                 android:hint="0"
+                                android:enabled="false"
                                 android:imeOptions="actionNext"
                                 android:inputType="number"
                                 android:maxLength="1"

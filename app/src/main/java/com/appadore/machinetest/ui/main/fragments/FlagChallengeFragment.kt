@@ -2,11 +2,9 @@ package com.appadore.machinetest.ui.main.fragments
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.appadore.machinetest.R
@@ -31,12 +29,18 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
     companion object {
         private const val ARG_QUESTION = "question"
         private const val ARG_POSITION = "position"
+        private const val ARG_REMAINING_TIME = "remaining_time"
 
-        fun newInstance(question: Question, currentPos: Int): FlagChallengeFragment {
+        fun newInstance(
+            question: Question,
+            currentPos: Int,
+            remainingTime: Long = 0L
+        ): FlagChallengeFragment {
             val fragment = FlagChallengeFragment()
             fragment.arguments = Bundle().apply {
                 putParcelable(ARG_QUESTION, question)
                 putInt(ARG_POSITION, currentPos)
+                putLong(ARG_REMAINING_TIME, remainingTime)
             }
             return fragment
         }
@@ -45,6 +49,7 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
     private lateinit var mAdapter: ChallengeOptionListAdapter
     private var currentQuestion: Question? = null
     private var currentQuestionIndex: Int = 0
+    private var currentQuestionRemainingTime: Long = 0L
 
 
     override fun getFragmentBinding(
@@ -82,7 +87,7 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
 
     private val mClick = object : AdapterClickListener<Country> {
         override fun onAdapterItemClicked(item: Country) {
-            if (::mAdapter.isInitialized){
+            if (::mAdapter.isInitialized) {
                 mAdapter.updateSelection(item)
             }
         }
@@ -92,6 +97,7 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
         arguments?.let {
             currentQuestion = it.getParcelableCompat(ARG_QUESTION)
             currentQuestionIndex = it.getInt(ARG_POSITION, 0)
+            currentQuestionRemainingTime = it.getLong(ARG_REMAINING_TIME, 0)
         }
     }
 
@@ -99,7 +105,18 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
         currentQuestion?.let {
             binding?.tvQstCount?.text = getString(R.string.question_count, currentQuestionIndex + 1)
             setUpRecyclerView(it.countries)
-            startCountdown(AppConstants.DEFAULT_QUESTION_INTERVAL)
+
+            if (currentQuestionRemainingTime != 0L) {
+                binding?.tvCountdown?.text = "0"
+                if (currentQuestionRemainingTime < AppConstants.QUESTION_TIMEOUT_INTERVAL) {
+                    updateAnswer(false)
+                    startNextQuestionInterval(currentQuestionRemainingTime, 0L)
+                } else {
+                    startCountdown(currentQuestionRemainingTime - AppConstants.QUESTION_TIMEOUT_INTERVAL)
+                }
+            } else {
+                startCountdown(AppConstants.QUESTION_INTERVAL)
+            }
             binding?.item = it
         }
     }
@@ -134,9 +151,12 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
             }
 
             override fun onFinish() {
-                if (isQuestionCountdown){
+                if (isQuestionCountdown) {
                     updateAnswer()
-                    startNextQuestionInterval()
+                    startNextQuestionInterval(
+                        AppConstants.QUESTION_TIMEOUT_INTERVAL,
+                        AppConstants.QUESTION_TIMEOUT_INTERVAL_DELAY
+                    )
                 } else {
                     goToNextQuestion()
                 }
@@ -146,35 +166,32 @@ class FlagChallengeFragment : BaseFragment<FlagChallengeViewModel, FragmentFlagC
     }
 
 
-    private fun updateAnswer() {
+    private fun updateAnswer(isShowMsg: Boolean = true) {
         val selectedCountry = mAdapter.getSelectedOption()
         val correctAnswerId = currentQuestion?.answerId
         if (selectedCountry == null) {
-            showSnackBar("No option was selected, so your answer is counted as wrong.")
+            if (isShowMsg)
+                showSnackBar("No option was selected, so your answer is counted as wrong.")
         } else {
             if (selectedCountry.id == correctAnswerId) {
-                showSnackBar("Your answer is correct.")
+                if (isShowMsg)
+                    showSnackBar("Your answer is correct.")
                 selectedCountry.ansStatus = AppConstants.AnswerStatus.CORRECT
                 viewModel.updateTotalScore()
             } else {
-                showSnackBar("Your answer is wrong.")
+                if (isShowMsg)
+                    showSnackBar("Your answer is wrong.")
                 selectedCountry.ansStatus = AppConstants.AnswerStatus.WRONG
             }
         }
         mAdapter.updateAnswer(selectedCountry, correctAnswerId ?: 0)
-        /*if (viewModel.getTotalQuestions() == currentQuestionIndex + 1) {
-            showSnackBar("Challenge Completed")
-        } else {
-            showSnackBar("Time over! Next question in 10 seconds.")
-        }*/
-
     }
 
-    private fun startNextQuestionInterval(){
+    private fun startNextQuestionInterval(interval: Long, delay: Long) {
         CoroutineScope(Dispatchers.Main).launch {
-            delay(2000)
+            delay(delay)
             binding?.layoutTimerCount?.visibility = View.VISIBLE
-            startCountdown(AppConstants.DEFAULT_QUESTION_TIMEOUT_INTERVAL, false)
+            startCountdown(interval - delay, false)
         }
     }
 }

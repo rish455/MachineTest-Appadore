@@ -40,6 +40,17 @@ class FlagChallengeRepository @Inject constructor(
         return _dataStoreHelper.getTotalScore()
     }
 
+    fun setChallengeStartTime(value: Long) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _dataStoreHelper.setChallengeStartTime(value)
+        }
+
+    }
+
+    fun getChallengeStartTime(): Long {
+        return _dataStoreHelper.getChallengeStartTime()
+    }
+
     fun getQuestionsFromJson(): List<Question> {
         val jsonString: String = try {
             val inputStream = _context.assets.open("questions.json")

@@ -8,6 +8,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import com.appadore.machinetest.R
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 object AppUtils {
@@ -23,6 +26,13 @@ object AppUtils {
         fun positiveButton(dialogInterface: DialogInterface)
         fun negativeButton(dialogInterface: DialogInterface)
     }
+
+    fun convertMillisToTimeFormat(timeInMillis: Long): String {
+        val date = Date(timeInMillis)
+        val timeFormat = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+        return timeFormat.format(date)
+    }
+
 
 
     inline fun <reified T : Parcelable> Intent.getParcelableExtraCompat(key: String): T? {

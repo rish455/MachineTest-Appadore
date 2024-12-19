@@ -46,4 +46,11 @@ class FlagChallengeViewModel @Inject constructor(private val _repository: FlagCh
         return _repository.getTotalScore()
     }
 
+    fun getChallengeStartTime (): Long {
+        return _repository.getChallengeStartTime()
+    }
+
+    fun setChallengeStartTime (value: Long) {
+        _repository.setChallengeStartTime(value)
+    }
 }

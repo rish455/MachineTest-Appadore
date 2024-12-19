@@ -30,7 +30,7 @@ class DataStoreHelper @Inject constructor(@ApplicationContext private val contex
     }
 
     fun getCurrentQuestionIndex(): Int {
-        return getStoredInt(KEY_CURRENT_QUESTION_INDEX, 0)
+        return getStoredInt(KEY_CURRENT_QUESTION_INDEX, -1)
     }
 
     suspend fun updateTotalScore() {
@@ -39,6 +39,14 @@ class DataStoreHelper @Inject constructor(@ApplicationContext private val contex
 
     fun getTotalScore(): Int {
         return getStoredInt(KEY_TOTAL_SCORE, 0)
+    }
+
+    suspend fun setChallengeStartTime(text: Long) {
+        storeLong(KEY_CHALLENGE_START_TIME, text)
+    }
+
+    fun getChallengeStartTime(): Long {
+        return getStoredLong(KEY_CHALLENGE_START_TIME, 0)
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -138,5 +146,6 @@ class DataStoreHelper @Inject constructor(@ApplicationContext private val contex
     companion object {
         const val KEY_CURRENT_QUESTION_INDEX = "current_question_index"
         const val KEY_TOTAL_SCORE = "total_score"
+        const val KEY_CHALLENGE_START_TIME = "challenge_start_time"
     }
 }
